@@ -10,3 +10,20 @@ The Online Retail dataset is a transactional dataset representing purchases from
 - CustomerID: Unique identifier for customers
 - InvoiceDate: Date and time of the transaction
 - Country: Location of the customer
+
+## Requirements
+### Required Libraries:
+You need to install the following Python libraries:
+- numpy: For numerical operations.
+- pandas: For data manipulation and analysis.
+- matplotlib: For data visualization.
+- scikit-learn: For data preprocessing (specifically for MinMaxScaler).
+- openpyxl: For reading Excel files.
+You can install these libraires using the following commands:
+``` bash
+pip install numpy
+pip install pandas
+pip install matplotlib
+pip install scikit-learn
+pip install openpyxl
+```
