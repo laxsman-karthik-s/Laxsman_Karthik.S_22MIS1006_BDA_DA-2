@@ -47,3 +47,16 @@ pip install openpyxl
 ### Additional notes
 - Ensure that the dataset file is in the same directory as your script or adjust the file_path variable to point to the correct location.
 
+## Ouputs
+- The SOM grid after 0 iterations
+![SOM_i0](https://github.com/user-attachments/assets/ae96f0df-5f07-489b-94c0-abafbed6eb1d)
+- The SOM grid after 200 iterations
+![SOM_i200](https://github.com/user-attachments/assets/2693795a-8dd5-4715-8d5f-89bb00d4e64a)
+- The SOM grid after 400 iterations
+![SOM_i400](https://github.com/user-attachments/assets/0acf26a5-83c9-42bc-93b2-116c61ebb354)
+- The SOM grid after 600 iterations
+![SOM_i600](https://github.com/user-attachments/assets/84fbb816-8db0-4d6f-8c10-dd9cad650711)
+- The SOM grid after 800 iterations
+![SOM_i800](https://github.com/user-attachments/assets/f0ff44b7-0cee-4693-9280-1d64fe38cab6)
+- SOM Dendrogram for the telecom churn dataset
+![SOM_dg](https://github.com/user-attachments/assets/afd5bcfa-2d97-47d9-83d5-70f2c0a4dc5a)
