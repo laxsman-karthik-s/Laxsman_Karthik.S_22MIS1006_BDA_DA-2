@@ -1,15 +1,21 @@
-# Laxsman_Karthik.S_22MIS1006_BDA_DA-2
+# Customer Churn prediction - SOM
 ## About the Dataset:
-The Online Retail dataset is a transactional dataset representing purchases from an online retail store based in the UK. It contains records of over 500,000 transactions with key features including:
+The Telco Customer Churn dataset contains information about customers of a telecommunications company and their services usage.Here’s a brief description of its features:
 
-- InvoiceNo: Unique identifier for each transaction
-- StockCode: Identifier for each product
-- Description: Name or description of the product
-- Quantity: Number of items purchased
-- UnitPrice: Price per item
-- CustomerID: Unique identifier for customers
-- InvoiceDate: Date and time of the transaction
-- Country: Location of the customer
+- CustomerID: A unique identifier for each customer.
+- Gender: The gender of the customer (Male, Female).
+- SeniorCitizen: Indicates whether the customer is a senior citizen (1 for yes, 0 for no).
+- Tenure: The number of months the customer has been with the company.
+- PhoneService: Indicates whether the customer subscribes to a phone service (Yes, No).
+- MultipleLines: Indicates whether the customer has multiple lines (Yes, No, No phone service).
+- InternetService: Type of internet service the customer subscribes to (DSL, Fiber optic, No).
+- TechSupport: Indicates whether the customer has tech support service (Yes, No, No internet service).
+- Contract: The type of contract the customer has (Month-to-month, One year, Two year).
+- PaperlessBilling: Indicates whether the customer has paperless billing (Yes, No).
+- PaymentMethod: The method of payment (Electronic check, Mailed check, Bank transfer, Credit card).
+- MonthlyCharges: The amount charged to the customer monthly.
+- TotalCharges: The total amount charged to the customer over their tenure.
+- Churn: Indicates whether the customer has churned (Yes, No).
 
 ## Requirements
 ### Required Libraries:
@@ -27,3 +33,4 @@ pip install matplotlib
 pip install scikit-learn
 pip install openpyxl
 ```
+## 
