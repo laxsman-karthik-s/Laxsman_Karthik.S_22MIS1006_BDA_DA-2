@@ -1,35 +1,67 @@
+### Libraries Imported
+``` python
 import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import MinMaxScaler
-
+```
+NumPy is used for numerical operations, particularly for handling arrays.
+Pandas is used for data manipulation and analysis, specifically for handling the dataset.
+Matplotlib is a plotting library for visualizing data.
+MinMaxScaler from sklearn is used to normalize the feature values.
+Self-Organizing Map Class
+python
+Copy code
 class SelfOrganizingMap:
     def __init__(self, m, n, dim, learning_rate=0.5, radius=None, num_iterations=1000):
-        self.m = m
-        self.n = n
-        self.dim = dim
-        self.learning_rate = learning_rate
-        self.radius = radius if radius else max(m, n) / 2
-        self.num_iterations = num_iterations
-        self.time_constant = num_iterations / np.log(self.radius)
+Initialization: The constructor initializes the SOM with:
+m and n: the dimensions of the SOM grid.
+dim: the dimensionality of input data (e.g., 3 for RGB).
+learning_rate: the initial learning rate.
+radius: the neighborhood radius (default is half of the grid size).
+num_iterations: the number of training iterations.
+python
+Copy code
         self.weights = np.random.rand(m, n, dim)
-
+Weights: Randomly initializes the weight vectors for each neuron in the grid.
+Training Method
+python
+Copy code
     def train(self, data):
         for iteration in range(self.num_iterations):
+The train method iterates through the specified number of training iterations.
+python
+Copy code
             input_vector = data[np.random.randint(0, data.shape[0])]
             bmu_index = self.find_bmu(input_vector)
+Random Input Selection: Selects a random input vector from the dataset.
+BMU (Best Matching Unit): Finds the neuron in the SOM that is closest to the selected input vector.
+python
+Copy code
             current_learning_rate = self.learning_rate * np.exp(-iteration / self.num_iterations)
             current_radius = self.radius * np.exp(-iteration / self.time_constant)
+Learning Rate and Radius Decay: Both parameters decrease over time to fine-tune the learning process.
+python
+Copy code
             self.update_weights(input_vector, bmu_index, current_learning_rate, current_radius)
-
+Weight Update: Updates the weights of the neurons in the SOM based on their distance from the BMU.
+python
+Copy code
             if iteration % 100 == 0:
                 self.visualize_weights(iteration)
-
+Visualization: At every 100 iterations, the weights of the neurons are visualized.
+Finding the BMU
+python
+Copy code
     def find_bmu(self, input_vector):
         distances = np.linalg.norm(self.weights - input_vector, axis=2)
         bmu_index = np.unravel_index(np.argmin(distances), (self.m, self.n))
         return bmu_index
-
+Distance Calculation: Computes the Euclidean distance between the input vector and each neuron's weight.
+Index of BMU: Returns the index of the neuron with the smallest distance to the input vector.
+Updating Weights
+python
+Copy code
     def update_weights(self, input_vector, bmu_index, learning_rate, radius):
         for i in range(self.m):
             for j in range(self.n):
@@ -37,7 +69,10 @@ class SelfOrganizingMap:
                 if distance_to_bmu < radius:
                     influence = np.exp(-distance_to_bmu**2 / (2 * (radius**2)))
                     self.weights[i, j] += influence * learning_rate * (input_vector - self.weights[i, j])
-
+Updates the weights of the neurons within the neighborhood radius of the BMU, with a calculated influence based on their distance to the BMU.
+Weight Visualization
+python
+Copy code
     def visualize_weights(self, iteration):
         plt.figure(figsize=(10, 6))
         for i in range(self.m):
@@ -48,7 +83,10 @@ class SelfOrganizingMap:
         plt.ylabel("SOM Grid Columns")
         plt.colorbar(label='Weight Value')
         plt.show()
-
+Plotting Weights: Visualizes the weights of the neurons on the SOM grid at specific iterations.
+Data Preprocessing Function
+python
+Copy code
 def preprocess_online_retail_data(file_path):
     df = pd.read_excel(file_path)
     df.dropna(inplace=True)
@@ -64,7 +102,13 @@ def preprocess_online_retail_data(file_path):
     customer_data_scaled = scaler.fit_transform(customer_df)
     
     return customer_data_scaled, customer_df
-
+Data Loading: Loads the dataset from an Excel file.
+Data Cleaning: Removes rows with missing values or zero quantities.
+Feature Engineering: Calculates the total price for each transaction and aggregates data by CustomerID.
+Normalization: Scales the features to a range of [0, 1] for better training.
+SOM Visualization Function
+python
+Copy code
 def visualize_som(som, customer_df):
     plt.figure(figsize=(10, 6))
     for i in range(som.m):
@@ -77,10 +121,18 @@ def visualize_som(som, customer_df):
 
     plt.title("SOM Customer Segmentation")
     plt.show()
-
+Visualizes Customer Segments: Displays the neurons in the SOM and marks where each customer segment maps to the SOM grid based on their aggregated features.
+Main Execution Block
+python
+Copy code
 if __name__ == '__main__':
     file_path = 'Online Retail.xlsx'
     customer_data_scaled, customer_df = preprocess_online_retail_data(file_path)
     som = SelfOrganizingMap(10, 10, customer_data_scaled.shape[1], learning_rate=0.5, num_iterations=1000)
     som.train(customer_data_scaled)
     visualize_som(som, customer_df)
+Data Processing: Reads and preprocesses the retail dataset.
+SOM Initialization: Creates a 10x10 SOM for the scaled customer data.
+Training: Trains the SOM on the preprocessed customer data.
+Visualization: Displays the customer segments on the SOM grid.
+This code effectively implements a Self-Organizing Map for customer segmentation based on the Online Retail dataset, allowing for the visualization of how different customer segments are organized in relation to one another.
